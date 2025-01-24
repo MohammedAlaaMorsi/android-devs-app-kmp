@@ -20,9 +20,11 @@ kotlin {
                 api(libs.koin.core)
                 implementation(libs.koin.compose)
                 implementation(libs.koin.composeVM)
+                implementation(libs.room.runtime)
                 implementation(projects.core.network)
+                implementation(projects.core.database)
 
-                /*implementation(projects.core.database)
+                /*
                 implementation(projects.domain.auth)
                 implementation(projects.feature.login)
                 implementation(projects.feature.signup)
@@ -36,11 +38,15 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
+                implementation(libs.koin.android)
+                implementation(libs.room.runtime.android)
+
             }
         }
 
         val iosMain by creating {
             dependencies {
+
             }
         }
         val commonTest by getting {

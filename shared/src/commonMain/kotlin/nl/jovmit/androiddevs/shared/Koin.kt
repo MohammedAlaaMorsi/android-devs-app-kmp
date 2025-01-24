@@ -1,5 +1,6 @@
 package nl.jovmit.androiddevs.shared
 
+import nl.jovmit.androiddevs.core.database.AppDatabase
 import nl.jovmit.androiddevs.core.network.AuthService
 import nl.jovmit.androiddevs.core.network.AuthServiceImp
 import nl.jovmit.androiddevs.core.network.ktor.Ktor
@@ -16,7 +17,8 @@ fun initKoin(config: KoinAppDeclaration? = null) =
     startKoin {
         config?.invoke(this)
         modules(
-            provideNetworkModule
+            provideNetworkModule,
+            provideDatabaseModule
         )
     }
 
@@ -26,6 +28,14 @@ val provideNetworkModule = module {
     singleOf(::AuthServiceImp).bind(AuthService::class)
     singleOf(::KtorClientProviderImp).bind(KtorClientProvider::class)
 }
+
+val provideDatabaseModule = module {
+    roomModule()
+    single {
+        get<AppDatabase>().userDao()
+    }
+}
+
 /*
 val provideRepositoryModule = module {
     singleOf(::NoteRepositoryImpl).bind(NoteRepository::class)

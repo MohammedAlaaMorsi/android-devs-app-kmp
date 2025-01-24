@@ -1,6 +1,57 @@
+
 plugins {
+    alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
+}
+
+kotlin {
+    jvmToolchain(21) // Ensure Kotlin targets JVM 21
+    androidTarget()
+    iosX64()
+    iosArm64()   // 64-bit iPhone devices
+    macosArm64() // Modern Apple Silicon-based Macs
+    iosSimulatorArm64()
+    jvm("desktop")
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(libs.room.runtime)
+
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.room.runtime.android)
+            }
+        }
+
+        val iosMain by creating {
+            dependencies {
+            }
+        }
+        val commonTest by getting {
+            dependencies {
+            }
+        }
+    }
+
+}
+
+
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
+dependencies {
+    add("kspCommonMainMetadata", libs.room.compiler)
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().configureEach {
+    if (name != "kspCommonMainKotlinMetadata" ) {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
 }
 
 android {
@@ -30,9 +81,6 @@ android {
         targetCompatibility = JavaVersion.toVersion(javaVersion)
     }
 
-    kotlinOptions {
-        jvmTarget = libs.versions.javaVersion.get()
-    }
 
     testOptions.unitTests {
         isReturnDefaultValues = true
@@ -43,12 +91,4 @@ android {
             }
         }
     }
-}
-
-dependencies {
-    implementation(libs.bundles.room)
-
-    testImplementation(libs.bundles.unit.testing)
-
-    testRuntimeOnly(libs.junit.jupiter.engine)
 }
