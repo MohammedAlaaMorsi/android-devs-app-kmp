@@ -15,7 +15,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "AndroidDevsKMP"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-include(":app")
+include(":androidApp")
 include(":core:view")
 include(":feature:welcome")
 include(":feature:signup")
@@ -25,4 +25,5 @@ include(":feature:postdetails")
 include(":domain:auth")
 include(":core:network")
 include(":core:database")
+include(":shared")
 include(":testutils")

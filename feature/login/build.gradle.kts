@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt.android)
-    alias(libs.plugins.kapt)
     alias(libs.plugins.parcelable)
     alias(libs.plugins.paparazzi)
     alias(libs.plugins.kotlin.serialization)
@@ -59,9 +57,6 @@ dependencies {
     implementation(projects.core.view)
     implementation(projects.domain.auth)
     implementation(libs.bundles.androidx)
-    implementation(libs.bundles.hilt)
-
-    kapt(libs.hilt.compiler)
 
     testImplementation(projects.testutils)
 

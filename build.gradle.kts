@@ -6,8 +6,6 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.compose.compiler) apply false
     alias(libs.plugins.kotlin.serialization) apply false
-    alias(libs.plugins.hilt.android) apply false
-    alias(libs.plugins.kapt) apply false
     alias(libs.plugins.parcelable) apply false
     alias(libs.plugins.paparazzi) apply false
 }

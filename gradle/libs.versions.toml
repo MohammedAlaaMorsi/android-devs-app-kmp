@@ -16,11 +16,13 @@ coilVersion = "2.6.0"
 androidxUnitVersion = "1.2.1"
 androidxEspressoVersion = "3.6.1"
 testJunitJupiterVersion = "5.10.0"
-androidxLifecycleVersion = "2.8.7"
-hiltVersion = "2.51.1"
-hiltNavigationVersion = "1.2.0"
+androidxLifecycleVersion = "2.8.2"
 paparazziVersion = "1.3.1"
 buildkonfigVersion = "0.15.2"
+koinVersion = "4.0.1"
+composeVersion = "1.7.3"
+composeViewmodelVersion = "2.8.4"
+kotlinxSerializationVersion = "1.8.0"
 [libraries]
 androidx-ktx = { module = "androidx.core:core-ktx", version.ref = "androidxCoreKtxVersion" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycleVersion" }
@@ -44,12 +46,9 @@ room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
 
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }
-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationVersion" }
-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltVersion" }
-hilt-android-test = { module = "com.google.dagger:hilt-android-testing", version.ref = "hiltVersion" }
-hilt-android-test-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltVersion" }
-network-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.6.3" }
+androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidxLifecycleVersion" }
+androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycleVersion" }
+network-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationVersion" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorVersion" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorVersion" }
 ktor-client-encoding = { module = "io.ktor:ktor-client-encoding", version.ref = "ktorVersion" }
@@ -67,14 +66,17 @@ jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.re
 truth = { module = "com.google.truth:truth", version.ref = "truthVersion" }
 test-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version = "1.8.0" }
 test-okhttp-mockserver = { module = "com.squareup.okhttp3:mockwebserver", version = "4.10.0" }
+koin-core = { module= "io.insert-koin:koin-core" , version.ref = "koinVersion"}
+koin-android = {  module=  "io.insert-koin:koin-android" , version.ref = "koinVersion"}
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinVersion" }
+koin-composeVM = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koinVersion" }
 
 [bundles]
 androidx = ["androidx-ktx", "androidx-lifecycle-runtime"]
 compose = ["compose-activity", "compose-ui", "compose-graphics", "compose-preview", "compose-material3", "compose-navigation", "compose-lifecycle-runtime", "compose-material-icons", "network-serialization"]
 compose-debug = ["compose-ui-tooling", "compose-ui-test-manifest"]
-hilt = ["hilt-android", "hilt-navigation"]
 room = ["room-ktx", "room-runtime"]
-ui-testing = ["androidx-junit", "androidx-espresso", "androidx-compose-test", "hilt-android-test"]
+ui-testing = ["androidx-junit", "androidx-espresso", "androidx-compose-test"]
 unit-testing = ["jupiter", "jupiter-params", "truth", "jupiter-vintage", "test-coroutines", "test-okhttp-mockserver"]
 
 [plugins]
@@ -83,9 +85,8 @@ android-library = { id = "com.android.library", version.ref = "gradlePluginVersi
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlinVersion" }
 kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinVersion" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlinVersion" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVersion" }
-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
 paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazziVersion" }
 parcelable = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlinVersion" }
 buildkonfig = { id= "com.codingfeline.buildkonfig", version.ref ="buildkonfigVersion" }
+jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "composeVersion" }

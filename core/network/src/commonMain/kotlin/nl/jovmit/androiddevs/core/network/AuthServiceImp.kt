@@ -7,7 +7,6 @@ import kotlinx.serialization.json.Json
 import nl.jovmit.androiddevs.core.network.ktor.Ktor
 
 class AuthServiceImp(private val ktor: Ktor) : AuthService {
-
     override suspend fun login(loginData: LoginData): AuthResponse {
         val response = ktor.makeOAuthRequest(method = HttpMethod.Post, url = "/auth/login")
         when (response.status) {

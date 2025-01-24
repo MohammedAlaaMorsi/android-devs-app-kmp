@@ -1,10 +1,53 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+
 plugins {
+    alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kapt)
-    alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.jetbrains.compose)
 }
+
+
+kotlin {
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+        }
+    }
+
+    sourceSets {
+
+        androidMain.dependencies {
+            implementation(compose.preview)
+            implementation(libs.bundles.androidx)
+        }
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
+            implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.composeVM)
+            implementation(libs.koin.android)
+            implementation(projects.core.view)
+            implementation(projects.core.network)
+            implementation(projects.feature.welcome)
+            implementation(projects.feature.signup)
+            implementation(projects.feature.login)
+            implementation(projects.feature.timeline)
+            implementation(projects.feature.postdetails)
+            implementation(projects.shared)
+        }
+    }
+}
+
 
 android {
     namespace = "nl.jovmit.androiddevs"
@@ -39,10 +82,6 @@ android {
         targetCompatibility = JavaVersion.toVersion(javaVersion)
     }
 
-    kotlinOptions {
-        jvmTarget = libs.versions.javaVersion.get()
-    }
-
     buildFeatures {
         compose = true
     }
@@ -64,29 +103,4 @@ android {
             }
         }
     }
-}
-
-dependencies {
-    implementation(projects.core.view)
-    implementation(projects.core.network)
-    implementation(projects.feature.welcome)
-    implementation(projects.feature.signup)
-    implementation(projects.feature.login)
-    implementation(projects.feature.timeline)
-    implementation(projects.feature.postdetails)
-
-    implementation(libs.bundles.androidx)
-    implementation(libs.bundles.hilt)
-
-    kapt(libs.hilt.compiler)
-
-    androidTestImplementation(platform(libs.compose.bom))
-    androidTestImplementation(libs.bundles.ui.testing)
-    androidTestImplementation(projects.testutils)
-
-    kaptAndroidTest(libs.hilt.android.test.compiler)
-
-    testImplementation(projects.testutils)
-
-    testRuntimeOnly(libs.junit.jupiter.engine)
 }

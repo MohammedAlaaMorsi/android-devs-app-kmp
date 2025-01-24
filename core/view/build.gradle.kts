@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt.android)
-    alias(libs.plugins.kapt)
     alias(libs.plugins.kotlin.compose.compiler)
 }
 
@@ -49,7 +47,5 @@ dependencies {
     debugImplementation(libs.bundles.compose.debug)
 
     implementation(libs.coil.compose)
-    implementation(libs.bundles.hilt)
 
-    kapt(libs.hilt.compiler)
 }
