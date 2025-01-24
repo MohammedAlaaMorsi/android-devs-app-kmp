@@ -1,6 +1,8 @@
-package nl.jovmit.androiddevs.core.network
+package network
 
 import com.google.common.truth.Truth.assertThat
+import nl.jovmit.androiddevs.core.network.ExpiredTokenInterceptor
+import nl.jovmit.androiddevs.core.network.LogoutSignal
 import org.junit.jupiter.api.Test
 
 class AuthTokenExpiryTest {

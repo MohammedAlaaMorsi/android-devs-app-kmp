@@ -1,4 +1,4 @@
-package nl.jovmit.androiddevs.core.network
+package network
 
 import okhttp3.Call
 import okhttp3.Connection
