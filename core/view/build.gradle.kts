@@ -1,8 +1,52 @@
 plugins {
+    alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlin.compose.compiler)
 }
+
+kotlin {
+    jvmToolchain(21) // Ensure Kotlin targets JVM 21
+    androidTarget()
+    iosX64()
+    iosArm64()   // 64-bit iPhone devices
+    iosSimulatorArm64()
+    jvm("desktop")
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.ui)
+                implementation(compose.components.resources)
+                implementation(compose.components.uiToolingPreview)
+                implementation(compose.material3)
+                implementation(libs.coil)
+                implementation(libs.coil.compose)
+                implementation(libs.material.icons.extended)
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.viewmodel.savestate.android)
+            }
+        }
+
+        val iosMain by creating {
+            dependencies {
+            }
+        }
+        val commonTest by getting {
+            dependencies {
+            }
+        }
+    }
+
+}
+compose {
+}
+
 
 android {
     namespace = "nl.jovmit.androiddevs.core.view"
@@ -31,21 +75,8 @@ android {
         targetCompatibility = JavaVersion.toVersion(javaVersion)
     }
 
-    kotlinOptions {
-        jvmTarget = libs.versions.javaVersion.get()
-    }
 
     buildFeatures {
         compose = true
     }
-}
-
-dependencies {
-    api(platform(libs.compose.bom))
-    api(libs.bundles.compose)
-
-    debugImplementation(libs.bundles.compose.debug)
-
-    implementation(libs.coil.compose)
-
 }
