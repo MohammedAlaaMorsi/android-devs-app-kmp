@@ -8,10 +8,19 @@ plugins {
 kotlin {
     jvmToolchain(21) // Ensure Kotlin targets JVM 21
     androidTarget()
-    iosX64()
-    iosArm64()   // 64-bit iPhone devices
-    macosArm64() // Modern Apple Silicon-based Macs
-    iosSimulatorArm64()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        macosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "AndroidDevsKMP"
+            isStatic = true
+            // Required when using NativeSQLiteDriver
+            linkerOpts.add("-lsqlite3")
+        }
+    }
     jvm("desktop")
 
     sourceSets {
@@ -21,6 +30,7 @@ kotlin {
                 implementation(libs.koin.compose)
                 implementation(libs.koin.composeVM)
                 implementation(libs.room.runtime)
+                implementation(libs.sqlite.bundled)
                 implementation(projects.core.network)
                 implementation(projects.core.database)
 

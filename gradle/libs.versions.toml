@@ -25,6 +25,7 @@ buildkonfigVersion = "0.15.2"
 koinVersion = "4.0.1"
 composeVersion = "1.7.3"
 kspVersion = "2.1.0-1.0.29"
+sqlite = "2.5.0-beta01"
 kotlinxSerializationVersion = "1.8.0"
 
 [libraries]
@@ -64,7 +65,7 @@ koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinVers
 koin-composeVM = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koinVersion" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilVersion" }
 coil = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coilVersion" }
-
+sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 [bundles]
 androidx = ["androidx-ktx", "androidx-lifecycle-runtime"]
 unit-testing = ["jupiter", "jupiter-params", "truth", "jupiter-vintage", "test-coroutines", "test-okhttp-mockserver"]

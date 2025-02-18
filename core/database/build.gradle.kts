@@ -30,6 +30,12 @@ kotlin {
             dependencies {
             }
         }
+
+        val desktopMain by getting {
+            dependencies {
+            }
+        }
+
         val commonTest by getting {
             dependencies {
             }
