@@ -4,9 +4,8 @@ import nl.jovmit.androiddevs.core.network.AuthService
 import nl.jovmit.androiddevs.core.network.LoginData
 import nl.jovmit.androiddevs.domain.auth.data.AuthResult
 import nl.jovmit.androiddevs.domain.auth.data.toDomain
-import javax.inject.Inject
 
-internal class RemoteAuthRepository @Inject constructor(
+class RemoteAuthRepository(
     private val authService: AuthService,
 ) : AuthRepository {
 
@@ -21,6 +20,6 @@ internal class RemoteAuthRepository @Inject constructor(
     }
 
     override suspend fun signUp(email: String, password: String, about: String): AuthResult {
-       TODO()
+        TODO()
     }
 }

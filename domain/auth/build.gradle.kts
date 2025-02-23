@@ -1,6 +1,44 @@
 plugins {
+    alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+}
+
+kotlin {
+    jvmToolchain(21) // Ensure Kotlin targets JVM 21
+    androidTarget()
+    iosX64()
+    iosArm64()   // 64-bit iPhone devices
+    macosArm64() // Modern Apple Silicon-based Macs
+    iosSimulatorArm64()
+    jvm("desktop")
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(projects.core.network)
+
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+            }
+        }
+
+        val iosMain by creating {
+            dependencies {
+            }
+        }
+
+        val desktopMain by getting {
+            dependencies {
+            }
+        }
+
+        val commonTest by getting {
+            dependencies {
+            }
+        }
+    }
+
 }
 
 android {
@@ -30,9 +68,6 @@ android {
         targetCompatibility = JavaVersion.toVersion(javaVersion)
     }
 
-    kotlinOptions {
-        jvmTarget = libs.versions.javaVersion.get()
-    }
 
     testOptions.unitTests {
         isReturnDefaultValues = true
@@ -43,12 +78,4 @@ android {
             }
         }
     }
-}
-dependencies {
-    implementation(projects.core.network)
-
-
-    testImplementation(projects.testutils)
-
-    testRuntimeOnly(libs.junit.jupiter.engine)
 }

@@ -6,6 +6,8 @@ import nl.jovmit.androiddevs.core.network.AuthServiceImp
 import nl.jovmit.androiddevs.core.network.ktor.Ktor
 import nl.jovmit.androiddevs.core.network.ktor.KtorClientProvider
 import nl.jovmit.androiddevs.core.network.ktor.KtorClientProviderImp
+import nl.jovmit.androiddevs.domain.auth.AuthRepository
+import nl.jovmit.androiddevs.domain.auth.RemoteAuthRepository
 import org.koin.core.context.startKoin
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.KoinAppDeclaration
@@ -18,7 +20,8 @@ fun initKoin(config: KoinAppDeclaration? = null) =
         config?.invoke(this)
         modules(
             provideNetworkModule,
-            provideDatabaseModule
+            provideDatabaseModule,
+            provideAuthModule
         )
     }
 
@@ -34,6 +37,10 @@ val provideDatabaseModule = module {
     single {
         get<AppDatabase>().userDao()
     }
+}
+
+val provideAuthModule = module {
+    singleOf(::RemoteAuthRepository).bind(AuthRepository::class)
 }
 
 /*
